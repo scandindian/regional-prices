@@ -1,11 +1,9 @@
 -- depends_on: {{ ref('de_case_study_datapoints_1') }}
 -- depends_on: {{ ref('de_case_study_datapoints_2') }}
 
-{{
-  config(
-    materialized = 'incremental',
-  )
-}}
+{{ config(
+  materialized = 'incremental',
+) }}
 
 {% if not is_incremental() %}
 SELECT 
@@ -16,6 +14,7 @@ SELECT
   valid_from::date AS valid_from,
   valid_to::date AS valid_to,
   company_id,
+  supplier_id,
   equipment_id,
   DATE_DIFF('day', valid_from::date, valid_to::date) AS contract_length
 FROM {{ ref('de_case_study_datapoints_1') }}
@@ -28,6 +27,7 @@ SELECT
   valid_from::date AS valid_from,
   valid_to::date AS valid_to,
   company_id,
+  supplier_id,
   equipment_id,
   DATE_DIFF('day', valid_from::date, valid_to::date) AS contract_length
 FROM {{ ref('de_case_study_datapoints_2') }}
