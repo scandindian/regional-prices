@@ -17,6 +17,8 @@ clean-targets:
 
 models:
   xeneta:
+    final:
+      schema: final
     staging:
       schema: staging
     latest:
